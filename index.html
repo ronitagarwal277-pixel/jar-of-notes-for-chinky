@@ -1,37 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Jar of Notes for Chinky 💖</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jar of Notes for Chinky</title>
 
 <style>
 body{
   margin:0;
-  font-family: 'Georgia', serif;
-  background: linear-gradient(to bottom, #fde7f3, #f3e8ff);
+  background:linear-gradient(#fde7f3,#f3e8ff);
+  font-family:Georgia,serif;
   display:flex;
   justify-content:center;
   align-items:center;
-  min-height:100vh;
+  height:100vh;
 }
 
-.screen{
-  width:360px;
+.card{
+  width:340px;
   background:white;
-  border-radius:20px;
-  padding:22px;
+  border-radius:18px;
+  padding:20px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,0.2);
+  box-shadow:0 15px 30px rgba(0,0,0,.2);
 }
-
-.hidden{display:none;}
 
 button{
   background:#ec4899;
   color:white;
   border:none;
-  padding:12px 20px;
+  padding:12px 18px;
   border-radius:12px;
   font-size:16px;
   cursor:pointer;
@@ -39,12 +37,11 @@ button{
 
 .jar{
   position:relative;
+  width:160px;
+  height:220px;
   margin:20px auto;
-  width:170px;
-  height:230px;
-  border:4px solid #999;
+  border:4px solid #aaa;
   border-radius:0 0 30px 30px;
-  background:#fff;
   overflow:hidden;
 }
 
@@ -53,123 +50,116 @@ button{
   background:#ccc;
 }
 
-.pink-note{
+.note{
   position:absolute;
-  width:18px;
-  height:25px;
-  background:#fbcfe8;
-  border-radius:4px;
-  animation: float 3s infinite ease-in-out;
-}
-
-@keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
-  100%{transform:translateY(0)}
-}
-
-.chit{
-  margin-top:15px;
+  width:120px;
+  left:20px;
+  bottom:10px;
   background:#fde2e2;
-  padding:16px;
-  border-radius:12px;
-  font-style:italic;
-  animation: unfold 0.6s ease-out;
+  padding:14px;
+  border-radius:8px;
+  transform:translateY(120px) scaleY(0.1);
+  opacity:0;
 }
 
-@keyframes unfold{
-  from{transform:scaleY(0); opacity:0}
-  to{transform:scaleY(1); opacity:1}
+.note.show{
+  animation: pull 1s ease forwards;
 }
 
-footer{
-  margin-top:10px;
+@keyframes pull{
+  0%{transform:translateY(120px) scaleY(0.1);opacity:0}
+  60%{transform:translateY(-30px) scaleY(0.1);opacity:1}
+  100%{transform:translateY(-30px) scaleY(1);opacity:1}
+}
+
+.footer{
   font-size:10px;
   opacity:0.15;
   text-align:right;
+  margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="screen" id="intro">
-  <h2>Jar of Notes for Chinky 💖</h2>
+<div class="card" id="intro">
+  <h3>Jar of Notes for Chinky 💖</h3>
   <p>
-    This jar holds little reminders for you.<br>
-    Open any random note whenever you feel low,
-    doubtful, confused, or just need a smile.
+    Open any random note anytime you feel low,
+    doubtful, confused, or just need warmth.
   </p>
   <button onclick="start()">Open the Jar</button>
 </div>
 
-<div class="screen hidden" id="main">
+<div class="card" id="main" style="display:none">
   <div class="jar">
     <div class="lid"></div>
-    <div class="pink-note" style="left:20px; bottom:30px;"></div>
-    <div class="pink-note" style="left:60px; bottom:60px;"></div>
-    <div class="pink-note" style="left:100px; bottom:40px;"></div>
-    <div class="pink-note" style="left:130px; bottom:70px;"></div>
+    <div id="paper" class="note"></div>
   </div>
-
-  <button onclick="pickNote()">Pick a Note</button>
-  <div id="noteBox"></div>
-  <footer>— from Ronit</footer>
+  <button onclick="pick()">Take a Note</button>
+  <div class="footer">— Ronit</div>
 </div>
 
-<audio id="music" loop>
+<audio id="music" muted loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/10/30/audio_8b59c69f87.mp3">
 </audio>
 
 <script>
-const notes = [
+const notes=[
 "Chinky, never forget how deeply loved you are.",
 "Your smile is my forever strength.",
 "You make my ordinary days feel special just by being you.",
 "I’m always rooting for you, even when you don’t see it.",
-"You’re stronger than you realize — give yourself the credit you deserve.",
+"You’re stronger than you realize.",
 "Life feels warmer with you around.",
-"You have a heart that makes everyone feel safe.",
-"No matter how grown up you get, you’ll always be my little sister (chilkut 😂🤌).",
+"You have a heart that makes people feel safe.",
+"No matter how grown up you get, you’ll always be my chilkut 😂🤌.",
 "Your kindness is your superpower.",
-"You turn chaos into laughter — effortlessly.",
-"I’m proud of the person you are becoming.",
-"You deserve every good thing coming your way.",
-"Your dreams matter — always remember that.",
-"When you cry, my heart sinks… so kripya karke don’t 🫶.",
-"Never dim your light for people who don’t value it.",
-"You’re proof of my theory of kismat — I’m so lucky to have you.",
-"There will be hard days; remember, you’re never alone.",
+"You turn chaos into laughter.",
+"I’m proud of who you’re becoming.",
+"You deserve good things.",
+"Your dreams matter.",
+"When you cry, my heart sinks — so please don’t 🫶.",
+"Never dim your light.",
+"I’m lucky to have you.",
+"You’re never alone.",
 "Your laugh is my favorite sound.",
-"You ARE allowed to rest, reset, and rise again.",
-"Thank you for being you — it’s more than enough.",
-"You bring joy without even trying.",
-"I believe in you more than words can say.",
-"Your heart is beautiful, Chinky — protect it.",
-"You make life brighter just by existing.",
-"I’ll always have your back.",
-"Your presence is a gift. YOU are a gift.",
-"Remember, you are loved beyond measure.",
-"I trust you — ALWAYS.",
-"Never change. Being you suits you perfectly.",
-"This jar can’t hold all my love, but it holds a little piece of it."
+"You’re allowed to rest and rise again.",
+"Thank you for being you.",
+"You bring joy effortlessly.",
+"I believe in you.",
+"Protect your beautiful heart.",
+"You make life brighter.",
+"I’ve always got your back.",
+"YOU are a gift.",
+"You are loved beyond measure.",
+"I trust you — always.",
+"Never change.",
+"This jar holds a piece of my love."
 ];
 
 let used=[];
 
 function start(){
-  document.getElementById('intro').classList.add('hidden');
-  document.getElementById('main').classList.remove('hidden');
-  document.getElementById('music').play();
+  document.getElementById("intro").style.display="none";
+  document.getElementById("main").style.display="block";
+  const m=document.getElementById("music");
+  m.muted=false;
+  m.play();
 }
 
-function pickNote(){
+function pick(){
   if(used.length===notes.length) return;
-  let remaining = notes.filter(n=>!used.includes(n));
-  let note = remaining[Math.floor(Math.random()*remaining.length)];
+  let r=notes.filter(n=>!used.includes(n));
+  let note=r[Math.floor(Math.random()*r.length)];
   used.push(note);
-  document.getElementById('noteBox').innerHTML =
-    `<div class='chit'>${note}</div>`;
+
+  let p=document.getElementById("paper");
+  p.classList.remove("show");
+  void p.offsetWidth;   // reset animation
+  p.textContent=note;
+  p.classList.add("show");
 }
 </script>
 
