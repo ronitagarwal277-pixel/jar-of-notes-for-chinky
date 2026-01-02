@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jar of Notes for Chinky 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to bottom, #fde7f3, #f3e8ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .screen {
+      max-width: 400px;
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    .hidden { display: none; }
+    button {
+      background: #ec4899;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .jar {
+      margin: 20px auto;
+      width: 160px;
+      height: 220px;
+      border: 4px solid #999;
+      border-radius: 0 0 30px 30px;
+      position: relative;
+      background: #fff;
+    }
+    .lid {
+      height: 20px;
+      background: #ccc;
+    }
+    .note {
+      background: #fde2e2;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 16px;
+      font-style: italic;
+    }
+    footer {
+      margin-top: 10px;
+      font-size: 10px;
+      opacity: 0.15;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+<div class="screen" id="intro">
+  <h2>Jar of Notes for Chinky 💖</h2>
+  <p>
+    This jar holds little reminders for you.<br>
+    Open any random note whenever you feel low, confused,
+    have self-doubt, or simply need a smile.
+  </p>
+  <button onclick="start()">Open the Jar</button>
+</div>
+
+<div class="screen hidden" id="jarScreen">
+  <div class="jar">
+    <div class="lid"></div>
+  </div>
+  <button onclick="pickNote()">Pick a Note</button>
+  <div class="note hidden" id="noteBox"></div>
+  <footer>— from Ronit</footer>
+</div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/30/audio_8b59c69f87.mp3">
+</audio>
+
+<script>
+const notes = [
+"Chinky, never forget how deeply loved you are.",
+"Your smile is my forever strength.",
+"You make my ordinary days feel special just by being you.",
+"I’m always rooting for you, even when you don’t see it.",
+"You’re stronger than you realize — give yourself the credit you deserve.",
+"Life feels warmer with you around.",
+"You have a heart that makes everyone feel safe.",
+"No matter how grown up you get, you’ll always be my little sister (chilkut 😂🤌).",
+"Your kindness is your superpower.",
+"You turn chaos into laughter — effortlessly.",
+"I’m proud of the person you are becoming.",
+"You deserve every good thing coming your way.",
+"Your dreams matter — always remember that.",
+"When you cry, my heart sinks… so kripya karke don’t 🫶.",
+"Never dim your light for people who don’t value it.",
+"You’re proof of my theory of kismat — I’m so lucky to have you.",
+"There will be hard days; remember, you’re never alone.",
+"Your laugh is my favorite sound.",
+"You ARE allowed to rest, reset, and rise again.",
+"Thank you for being you — it’s more than enough.",
+"You bring joy without even trying.",
+"I believe in you more than words can say.",
+"Your heart is beautiful, Chinky — protect it.",
+"You make life brighter just by existing.",
+"I’ll always have your back.",
+"Your presence is a gift. YOU are a gift.",
+"Remember, you are loved beyond measure.",
+"I trust you — ALWAYS.",
+"Never change. Being you suits you perfectly.",
+"This jar can’t hold all my love, but it holds a little piece of it."
+];
+
+let used = [];
+
+function start() {
+  document.getElementById('intro').classList.add('hidden');
+  document.getElementById('jarScreen').classList.remove('hidden');
+  document.getElementById('music').play();
+}
+
+function pickNote() {
+  if (used.length === notes.length) return;
+  let remaining = notes.filter(n => !used.includes(n));
+  let note = remaining[Math.floor(Math.random() * remaining.length)];
+  used.push(note);
+  let box = document.getElementById('noteBox');
+  box.textContent = note;
+  box.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>
