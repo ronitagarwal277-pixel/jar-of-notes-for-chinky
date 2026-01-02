@@ -1,83 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jar of Notes for Chinky 💖</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Georgia', serif;
-      background: linear-gradient(to bottom, #fde7f3, #f3e8ff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
-    }
-    .screen {
-      max-width: 400px;
-      background: white;
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-    .hidden { display: none; }
-    button {
-      background: #ec4899;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .jar {
-      margin: 20px auto;
-      width: 160px;
-      height: 220px;
-      border: 4px solid #999;
-      border-radius: 0 0 30px 30px;
-      position: relative;
-      background: #fff;
-    }
-    .lid {
-      height: 20px;
-      background: #ccc;
-    }
-    .note {
-      background: #fde2e2;
-      padding: 16px;
-      border-radius: 12px;
-      margin-top: 16px;
-      font-style: italic;
-    }
-    footer {
-      margin-top: 10px;
-      font-size: 10px;
-      opacity: 0.15;
-      text-align: right;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jar of Notes for Chinky 💖</title>
+
+<style>
+body{
+  margin:0;
+  font-family: 'Georgia', serif;
+  background: linear-gradient(to bottom, #fde7f3, #f3e8ff);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+
+.screen{
+  width:360px;
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.2);
+}
+
+.hidden{display:none;}
+
+button{
+  background:#ec4899;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:12px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.jar{
+  position:relative;
+  margin:20px auto;
+  width:170px;
+  height:230px;
+  border:4px solid #999;
+  border-radius:0 0 30px 30px;
+  background:#fff;
+  overflow:hidden;
+}
+
+.lid{
+  height:22px;
+  background:#ccc;
+}
+
+.pink-note{
+  position:absolute;
+  width:18px;
+  height:25px;
+  background:#fbcfe8;
+  border-radius:4px;
+  animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+  100%{transform:translateY(0)}
+}
+
+.chit{
+  margin-top:15px;
+  background:#fde2e2;
+  padding:16px;
+  border-radius:12px;
+  font-style:italic;
+  animation: unfold 0.6s ease-out;
+}
+
+@keyframes unfold{
+  from{transform:scaleY(0); opacity:0}
+  to{transform:scaleY(1); opacity:1}
+}
+
+footer{
+  margin-top:10px;
+  font-size:10px;
+  opacity:0.15;
+  text-align:right;
+}
+</style>
 </head>
+
 <body>
 
 <div class="screen" id="intro">
   <h2>Jar of Notes for Chinky 💖</h2>
   <p>
     This jar holds little reminders for you.<br>
-    Open any random note whenever you feel low, confused,
-    have self-doubt, or simply need a smile.
+    Open any random note whenever you feel low,
+    doubtful, confused, or just need a smile.
   </p>
   <button onclick="start()">Open the Jar</button>
 </div>
 
-<div class="screen hidden" id="jarScreen">
+<div class="screen hidden" id="main">
   <div class="jar">
     <div class="lid"></div>
+    <div class="pink-note" style="left:20px; bottom:30px;"></div>
+    <div class="pink-note" style="left:60px; bottom:60px;"></div>
+    <div class="pink-note" style="left:100px; bottom:40px;"></div>
+    <div class="pink-note" style="left:130px; bottom:70px;"></div>
   </div>
+
   <button onclick="pickNote()">Pick a Note</button>
-  <div class="note hidden" id="noteBox"></div>
+  <div id="noteBox"></div>
   <footer>— from Ronit</footer>
 </div>
 
@@ -119,22 +155,21 @@ const notes = [
 "This jar can’t hold all my love, but it holds a little piece of it."
 ];
 
-let used = [];
+let used=[];
 
-function start() {
+function start(){
   document.getElementById('intro').classList.add('hidden');
-  document.getElementById('jarScreen').classList.remove('hidden');
+  document.getElementById('main').classList.remove('hidden');
   document.getElementById('music').play();
 }
 
-function pickNote() {
-  if (used.length === notes.length) return;
-  let remaining = notes.filter(n => !used.includes(n));
-  let note = remaining[Math.floor(Math.random() * remaining.length)];
+function pickNote(){
+  if(used.length===notes.length) return;
+  let remaining = notes.filter(n=>!used.includes(n));
+  let note = remaining[Math.floor(Math.random()*remaining.length)];
   used.push(note);
-  let box = document.getElementById('noteBox');
-  box.textContent = note;
-  box.classList.remove('hidden');
+  document.getElementById('noteBox').innerHTML =
+    `<div class='chit'>${note}</div>`;
 }
 </script>
 
